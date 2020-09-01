@@ -17,13 +17,22 @@
           <text id="/data/person/dob_calendar:jr:constraintMsg">
             <value>Date must be before today</value>
           </text>
+          <text id="/data/person/f_name:jr:constraintMsg">
+            <value>Accepts only alphabets with the first letter capitalized</value>
+          </text>
+          <text id="/data/person/o_name:jr:constraintMsg">
+            <value>Accepts only alphabets with the first letter capitalized</value>
+          </text>
           <text id="/data/person/phone:jr:constraintMsg">
             <value>Please enter a valid local number, or use the standard international format, which includes a plus sign (+) and country code. For example: +254712345678</value>
+          </text>
+          <text id="/data/person/s_name:jr:constraintMsg">
+            <value>Accepts only alphabets with the first letter capitalized</value>
           </text>
         </translation>
       </itext>
       <instance>
-        <data delimiter="#" id="contact:person:create" prefix="J1!contact:person:create!" version="2020-07-22 10:20:07">
+        <data delimiter="#" id="contact:person:create" prefix="J1!contact:person:create!" version="2020-08-25 17:41:26">
           <inputs>
             <meta>
               <location>
@@ -44,6 +53,7 @@
             <contact_type>person</contact_type>
             <parent>PARENT</parent>
             <role>person</role>
+            <record_originator>cht</record_originator>
             <n_demographics/>
             <s_name/>
             <f_name/>
@@ -60,7 +70,7 @@
             <dob_approx/>
             <dob_raw/>
             <dob_iso/>
-            <dob_debug/>
+            <dob_note/>
             <age_in_years/>
             <age_in_months/>
             <date_of_birth/>
@@ -73,13 +83,14 @@
             <address_delimiter/>
             <n_relationship_details/>
             <contact_relationship/>
-            <living_with_client/>
             <relationship_delimiter/>
             <ipv_questions/>
             <ipv_physical/>
             <ipv_threats/>
             <ipv_sexual/>
             <ipv_outcome/>
+            <ipv_outcome_note/>
+            <living_with_client/>
             <ipv_delimiter/>
             <basline_info/>
             <baseline_hiv_status/>
@@ -105,10 +116,11 @@
       <bind nodeset="/data/person/contact_type" type="string"/>
       <bind nodeset="/data/person/parent" type="string"/>
       <bind nodeset="/data/person/role" type="string"/>
+      <bind nodeset="/data/person/record_originator" type="string"/>
       <bind nodeset="/data/person/n_demographics" readonly="true()" type="string"/>
-      <bind nodeset="/data/person/s_name" required="true()" type="string"/>
-      <bind nodeset="/data/person/f_name" required="true()" type="string"/>
-      <bind nodeset="/data/person/o_name" type="string"/>
+      <bind constraint="regex(., '^[A-Z]{1}[a-z]{1,14}$')" jr:constraintMsg="jr:itext('/data/person/s_name:jr:constraintMsg')" nodeset="/data/person/s_name" required="true()" type="string"/>
+      <bind constraint="regex(., '^[A-Z]{1}[a-z]{1,14}$')" jr:constraintMsg="jr:itext('/data/person/f_name:jr:constraintMsg')" nodeset="/data/person/f_name" required="true()" type="string"/>
+      <bind constraint="regex(., '^[A-Z]{1}[a-z]{1,14}$')" jr:constraintMsg="jr:itext('/data/person/o_name:jr:constraintMsg')" nodeset="/data/person/o_name" type="string"/>
       <bind calculate="concat( /data/person/f_name , ' ',  /data/person/o_name , ' ',  /data/person/s_name )" nodeset="/data/person/name" type="string"/>
       <bind calculate="../name" nodeset="/data/person/patient_name" type="string"/>
       <bind nodeset="/data/person/sex" required="true()" type="select1"/>
@@ -118,29 +130,30 @@
       <bind constraint=". &gt;= 0 and . &lt;= 11" jr:constraintMsg="jr:itext('/data/person/age_months:jr:constraintMsg')" nodeset="/data/person/age_months" relevant=" /data/person/dob_known  != 'yes'" required="false()" type="int"/>
       <bind calculate="if(format-date-time(today(),&quot;%m&quot;) -  /data/person/age_months  &lt; 0, format-date-time(today(),&quot;%m&quot;) -  /data/person/age_months  + 12, format-date-time(today(),&quot;%m&quot;) -  /data/person/age_months )" nodeset="/data/person/ephemeral_months" type="string"/>
       <bind calculate="if(format-date-time(today(),&quot;%m&quot;) -  /data/person/age_months  &lt; 0, format-date-time(today(),&quot;%Y&quot;) -  /data/person/age_years  - 1, format-date-time(today(),&quot;%Y&quot;) -  /data/person/age_years )" nodeset="/data/person/ephemeral_years" type="string"/>
-      <bind calculate="date(concat(string( /data/person/ephemeral_years ),'-',if( /data/person/ephemeral_months &lt;10, concat('0',string( /data/person/ephemeral_months )),  /data/person/ephemeral_months ),'-',string(format-date-time(today(), &quot;%d&quot;))))" nodeset="/data/person/dob_approx" type="string"/>
+      <bind calculate="date(concat(string( /data/person/ephemeral_years ),'-','06','-','16'))" nodeset="/data/person/dob_approx" type="string"/>
       <bind calculate="if( /data/person/dob_known  = 'yes',  /data/person/dob_calendar , /data/person/dob_approx )" nodeset="/data/person/dob_raw" type="string"/>
-      <bind calculate="format-date-time(decimal-date-time(../dob_raw),&quot;%Y-%m-%d&quot;)" nodeset="/data/person/dob_iso" type="string"/>
-      <bind nodeset="/data/person/dob_debug" readonly="true()" relevant="0" type="string"/>
+      <bind calculate="format-date(decimal-date-time(../dob_raw),&quot;%Y-%m-%d&quot;)" nodeset="/data/person/dob_iso" type="string"/>
+      <bind nodeset="/data/person/dob_note" readonly="true()" relevant="0" type="string"/>
       <bind calculate="floor( difference-in-months(  /data/person/date_of_birth , today() ) div 12 )" nodeset="/data/person/age_in_years" type="string"/>
       <bind calculate="difference-in-months(  /data/person/date_of_birth , today() )" nodeset="/data/person/age_in_months" type="string"/>
       <bind calculate=" /data/person/dob_iso " constraint=". &lt; today()" jr:constraintMsg="jr:itext('/data/person/date_of_birth:jr:constraintMsg')" nodeset="/data/person/date_of_birth" type="string"/>
       <bind nodeset="/data/person/head_of_household" type="string"/>
-      <bind nodeset="/data/person/marital_status" type="select1"/>
+      <bind nodeset="/data/person/marital_status" required="true()" type="select1"/>
       <bind nodeset="/data/person/demographics_delimiter" readonly="true()" type="string"/>
       <bind nodeset="/data/person/n_address" readonly="true()" type="string"/>
-      <bind nodeset="/data/person/physical_address" required="false()" type="string"/>
-      <bind constraint="regex(.,'(\+?\d{1,3})(\d{2,4})(\d{5,6})') and string-length(.) &lt;=14" jr:constraintMsg="jr:itext('/data/person/phone:jr:constraintMsg')" nodeset="/data/person/phone" required="true()" type="string"/>
+      <bind nodeset="/data/person/physical_address" required="true()" type="string"/>
+      <bind constraint="regex(.,'^([+]?[1-9]{3})([0-9]{9})$') or regex(.,'^[0-9]{10}$')" jr:constraintMsg="jr:itext('/data/person/phone:jr:constraintMsg')" nodeset="/data/person/phone" required="true()" type="string"/>
       <bind nodeset="/data/person/address_delimiter" readonly="true()" type="string"/>
       <bind nodeset="/data/person/n_relationship_details" readonly="true()" type="string"/>
-      <bind nodeset="/data/person/contact_relationship" required="false()" type="select1"/>
-      <bind nodeset="/data/person/living_with_client" required="false()" type="select1"/>
+      <bind nodeset="/data/person/contact_relationship" required="true()" type="select1"/>
       <bind nodeset="/data/person/relationship_delimiter" readonly="true()" type="string"/>
-      <bind nodeset="/data/person/ipv_questions" readonly="true()" type="string"/>
-      <bind nodeset="/data/person/ipv_physical" required="true()" type="select1"/>
-      <bind nodeset="/data/person/ipv_threats" required="true()" type="select1"/>
-      <bind nodeset="/data/person/ipv_sexual" required="true()" type="select1"/>
-      <bind nodeset="/data/person/ipv_outcome" required="true()" type="select1"/>
+      <bind nodeset="/data/person/ipv_questions" readonly="true()" relevant="selected( /data/person/contact_relationship , 'partner') or selected( /data/person/contact_relationship , 'spouse')" type="string"/>
+      <bind nodeset="/data/person/ipv_physical" relevant="selected( /data/person/contact_relationship , 'partner') or selected( /data/person/contact_relationship , 'spouse')" required="true()" type="select1"/>
+      <bind nodeset="/data/person/ipv_threats" relevant="selected( /data/person/contact_relationship , 'partner') or selected( /data/person/contact_relationship , 'spouse')" required="true()" type="select1"/>
+      <bind nodeset="/data/person/ipv_sexual" relevant="selected( /data/person/contact_relationship , 'partner') or selected( /data/person/contact_relationship , 'spouse')" required="true()" type="select1"/>
+      <bind calculate="if( /data/person/ipv_physical ='yes'or  /data/person/ipv_threats ='yes'or  /data/person/ipv_sexual ='yes','TRUE','FALSE')" nodeset="/data/person/ipv_outcome" relevant="selected( /data/person/contact_relationship , 'partner') or selected( /data/person/contact_relationship , 'spouse')" type="string"/>
+      <bind nodeset="/data/person/ipv_outcome_note" readonly="true()" relevant="selected( /data/person/contact_relationship , 'partner') or selected( /data/person/contact_relationship , 'spouse')" type="string"/>
+      <bind nodeset="/data/person/living_with_client" required="true()" type="select1"/>
       <bind nodeset="/data/person/ipv_delimiter" readonly="true()" type="string"/>
       <bind nodeset="/data/person/basline_info" readonly="true()" type="string"/>
       <bind nodeset="/data/person/baseline_hiv_status" required="true()" type="select1"/>
@@ -214,8 +227,9 @@
       <input ref="/data/person/age_months">
         <label>Age (months)</label>
       </input>
-      <input ref="/data/person/dob_debug">
-        <label>Months: <output value=" /data/person/ephemeral_months "/> Year: <output value=" /data/person/ephemeral_years "/> DOB Approx: <output value=" /data/person/dob_approx "/> DOB Calendar: <output value=" /data/person/dob_calendar "/> DOB ISO: <output value=" /data/person/dob_iso "/> AGE Years: <output value=" /data/person/age_in_years "/></label></input>
+      <input ref="/data/person/dob_note">
+        <label>DOB ISO: <output value=" /data/person/dob_iso "/></label>
+      </input>
       <select1 appearance="minimal" ref="/data/person/marital_status">
         <label>Marital Status</label>
         <item>
@@ -281,14 +295,6 @@
           <value>mother</value>
         </item>
         <item>
-          <label>Grandmother</label>
-          <value>grandmother</value>
-        </item>
-        <item>
-          <label>Grandfather</label>
-          <value>grandfather</value>
-        </item>
-        <item>
           <label>Sibling</label>
           <value>sibling</value>
         </item>
@@ -296,47 +302,12 @@
           <label>Child</label>
           <value>child</value>
         </item>
-        <item>
-          <label>Aunt</label>
-          <value>aunt</value>
-        </item>
-        <item>
-          <label>Uncle</label>
-          <value>uncle</value>
-        </item>
-        <item>
-          <label>Guardian</label>
-          <value>guardian</value>
-        </item>
-        <item>
-          <label>Friend</label>
-          <value>friend</value>
-        </item>
-        <item>
-          <label>Co-worker</label>
-          <value>co-worker</value>
-        </item>
-      </select1>
-      <select1 appearance="minimal" ref="/data/person/living_with_client">
-        <label>Living with client</label>
-        <item>
-          <label>Yes</label>
-          <value>yes</value>
-        </item>
-        <item>
-          <label>No</label>
-          <value>no</value>
-        </item>
-        <item>
-          <label>Declined to answer</label>
-          <value>na</value>
-        </item>
       </select1>
       <input ref="/data/person/relationship_delimiter">
         <label>&lt;hr style="margin:0 auto;"&gt;</label>
       </input>
       <input ref="/data/person/ipv_questions">
-        <label>**&lt;span style="color:blue"&gt;IPV Questions&lt;/span&gt;**</label>
+        <label>**&lt;span style="color:blue"&gt;IPV screening questions&lt;/span&gt;**</label>
       </input>
       <select1 ref="/data/person/ipv_physical">
         <label>Has he/she ever hit, kicked, slapped, or otherwise physically hurt you?</label>
@@ -371,15 +342,22 @@
           <value>no</value>
         </item>
       </select1>
-      <select1 ref="/data/person/ipv_outcome">
-        <label>IPV outcome</label>
+      <input ref="/data/person/ipv_outcome_note">
+        <label>&lt;h4 style=&quot;text-align:center;color:brown&quot;&gt;IPV screening outcome: <output value=" /data/person/ipv_outcome "/>&lt;/h4&gt;</label>
+      </input>
+      <select1 appearance="minimal" ref="/data/person/living_with_client">
+        <label>Living with client</label>
         <item>
-          <label>TRUE</label>
-          <value>TRUE</value>
+          <label>Yes</label>
+          <value>yes</value>
         </item>
         <item>
-          <label>FALSE</label>
-          <value>FALSE</value>
+          <label>No</label>
+          <value>no</value>
+        </item>
+        <item>
+          <label>Declined to answer</label>
+          <value>na</value>
         </item>
       </select1>
       <input ref="/data/person/ipv_delimiter">

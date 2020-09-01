@@ -27,13 +27,13 @@
             <value>Other</value>
           </text>
           <text id="/contact_follow_up/group_follow_up/status_call/responded:label">
-            <value>Contacted and linked</value>
+            <value>Contacted and already on ART</value>
           </text>
           <text id="/contact_follow_up/group_follow_up/status_call/responded_not_linked:label">
             <value>Contacted</value>
           </text>
           <text id="/contact_follow_up/group_follow_up/status_visit/available:label">
-            <value>Contacted and linked</value>
+            <value>Contacted and already on ART</value>
           </text>
           <text id="/contact_follow_up/group_follow_up/status_visit/available_not_linked:label">
             <value>Contacted</value>
@@ -59,7 +59,7 @@
         </translation>
       </itext>
       <instance>
-        <contact_follow_up delimiter="#" id="contact_follow_up" prefix="J1!contact_follow_up!" version="2020-08-17">
+        <contact_follow_up delimiter="#" id="contact_follow_up" prefix="J1!contact_follow_up!" version="2020-08-26">
           <inputs>
             <meta>
               <location>
@@ -69,6 +69,11 @@
                 <message/>
               </location>
             </meta>
+            <user>
+              <contact_id/>
+              <facility_id/>
+              <username/>
+            </user>
             <source>user</source>
             <source_id/>
             <t_follow_up_count/>
@@ -80,13 +85,6 @@
               <type/>
               <contact_type/>
               <role/>
-              <case_id/>
-              <case_name/>
-              <type_of_contact/>
-              <relation_to_case/>
-              <national_id/>
-              <passport_number/>
-              <alien_number/>
               <s_name/>
               <f_name/>
               <o_name/>
@@ -95,15 +93,6 @@
               <dob_known/>
               <date_of_birth/>
               <marital_status/>
-              <head_of_household/>
-              <date_of_last_contact/>
-              <occupation/>
-              <occupation_other/>
-              <health_care_worker/>
-              <facility/>
-              <education/>
-              <deceased/>
-              <date_of_death/>
               <nationality/>
               <phone/>
               <alternate_phone/>
@@ -133,8 +122,6 @@
           <last_contact_date/>
           <needs_signoff>true</needs_signoff>
           <group_follow_up>
-            <n_details/>
-            <date_last_contact>2020-08-17</date_last_contact>
             <follow_up_type/>
             <call_button/>
             <no_phone/>
@@ -143,13 +130,16 @@
             <status_visit/>
             <status_visit_other/>
             <facility_linked_to/>
-            <health_care_worker_handed_to/>
             <unique_patient_number/>
             <n_remarks/>
             <remarks/>
             <n_remarks_delimiter/>
             <is_not_available_reason_other/>
           </group_follow_up>
+          <audit_trail>
+            <created_by/>
+          </audit_trail>
+          <patient_name/>
           <meta tag="hidden">
             <instanceID/>
           </meta>
@@ -157,6 +147,9 @@
       </instance>
       <instance id="contact-summary"/>
       <bind nodeset="/contact_follow_up/inputs" relevant="./source = 'user'"/>
+      <bind nodeset="/contact_follow_up/inputs/user/contact_id" type="string"/>
+      <bind nodeset="/contact_follow_up/inputs/user/facility_id" type="string"/>
+      <bind nodeset="/contact_follow_up/inputs/user/username" type="string"/>
       <bind nodeset="/contact_follow_up/inputs/source" type="string"/>
       <bind nodeset="/contact_follow_up/inputs/source_id" type="string"/>
       <bind nodeset="/contact_follow_up/inputs/t_follow_up_count" type="string"/>
@@ -167,13 +160,6 @@
       <bind nodeset="/contact_follow_up/inputs/contact/type" type="string"/>
       <bind nodeset="/contact_follow_up/inputs/contact/contact_type" type="string"/>
       <bind nodeset="/contact_follow_up/inputs/contact/role" type="string"/>
-      <bind nodeset="/contact_follow_up/inputs/contact/case_id" type="string"/>
-      <bind nodeset="/contact_follow_up/inputs/contact/case_name" type="string"/>
-      <bind nodeset="/contact_follow_up/inputs/contact/type_of_contact" type="string"/>
-      <bind nodeset="/contact_follow_up/inputs/contact/relation_to_case" type="string"/>
-      <bind nodeset="/contact_follow_up/inputs/contact/national_id" type="string"/>
-      <bind nodeset="/contact_follow_up/inputs/contact/passport_number" type="string"/>
-      <bind nodeset="/contact_follow_up/inputs/contact/alien_number" type="string"/>
       <bind nodeset="/contact_follow_up/inputs/contact/s_name" type="string"/>
       <bind nodeset="/contact_follow_up/inputs/contact/f_name" type="string"/>
       <bind nodeset="/contact_follow_up/inputs/contact/o_name" type="string"/>
@@ -182,15 +168,6 @@
       <bind nodeset="/contact_follow_up/inputs/contact/dob_known" type="string"/>
       <bind nodeset="/contact_follow_up/inputs/contact/date_of_birth" type="string"/>
       <bind nodeset="/contact_follow_up/inputs/contact/marital_status" type="string"/>
-      <bind nodeset="/contact_follow_up/inputs/contact/head_of_household" type="string"/>
-      <bind nodeset="/contact_follow_up/inputs/contact/date_of_last_contact" type="string"/>
-      <bind nodeset="/contact_follow_up/inputs/contact/occupation" type="string"/>
-      <bind nodeset="/contact_follow_up/inputs/contact/occupation_other" type="string"/>
-      <bind nodeset="/contact_follow_up/inputs/contact/health_care_worker" type="string"/>
-      <bind nodeset="/contact_follow_up/inputs/contact/facility" type="string"/>
-      <bind nodeset="/contact_follow_up/inputs/contact/education" type="string"/>
-      <bind nodeset="/contact_follow_up/inputs/contact/deceased" type="string"/>
-      <bind nodeset="/contact_follow_up/inputs/contact/date_of_death" type="string"/>
       <bind nodeset="/contact_follow_up/inputs/contact/nationality" type="string"/>
       <bind nodeset="/contact_follow_up/inputs/contact/phone" type="string"/>
       <bind nodeset="/contact_follow_up/inputs/contact/alternate_phone" type="string"/>
@@ -217,10 +194,8 @@
  concat( /contact_follow_up/patient_age_in_years , if( /contact_follow_up/patient_age_in_years =1,' year and ',' years and ')),
  concat( /contact_follow_up/patient_age_in_months  mod 12, if(( /contact_follow_up/patient_age_in_months  mod 12)=1,' month old',' months old'))
 )" nodeset="/contact_follow_up/patient_age_display" type="string"/>
-      <bind calculate="2020-08-17" nodeset="/contact_follow_up/last_contact_date" type="string"/>
+      <bind calculate="2020-08-26" nodeset="/contact_follow_up/last_contact_date" type="string"/>
       <bind nodeset="/contact_follow_up/needs_signoff" type="string"/>
-      <bind nodeset="/contact_follow_up/group_follow_up/n_details" readonly="true()" required="true()" type="string"/>
-      <bind constraint="floor(decimal-date-time(.)) &lt;= floor(decimal-date-time(today()))" jr:constraintMsg="Date must not be in the future" nodeset="/contact_follow_up/group_follow_up/date_last_contact" readonly="true()" required="true()" type="string"/>
       <bind constraint="not(selected(.,'phone') and  /contact_follow_up/inputs/contact/phone  = '')" jr:constraintMsg="There's no registered phone number" nodeset="/contact_follow_up/group_follow_up/follow_up_type" required="true()" type="select1"/>
       <bind nodeset="/contact_follow_up/group_follow_up/call_button" readonly="true()" relevant=" /contact_follow_up/group_follow_up/follow_up_type ='phone' and  /contact_follow_up/inputs/contact/phone !=''" type="string"/>
       <bind nodeset="/contact_follow_up/group_follow_up/no_phone" readonly="true()" relevant=" /contact_follow_up/group_follow_up/follow_up_type ='phone' and  /contact_follow_up/inputs/contact/phone =''" type="string"/>
@@ -228,19 +203,32 @@
       <bind nodeset="/contact_follow_up/group_follow_up/status_call_other" relevant=" /contact_follow_up/group_follow_up/status_call  = 'other'" required="true()" type="string"/>
       <bind nodeset="/contact_follow_up/group_follow_up/status_visit" relevant=" /contact_follow_up/group_follow_up/follow_up_type  = 'in_person'" required="true()" type="select1"/>
       <bind nodeset="/contact_follow_up/group_follow_up/status_visit_other" relevant=" /contact_follow_up/group_follow_up/status_visit  = 'other'" required="true()" type="string"/>
-      <bind nodeset="/contact_follow_up/group_follow_up/facility_linked_to" relevant=" /contact_follow_up/group_follow_up/status_call  = 'responded' or  /contact_follow_up/group_follow_up/status_visit = 'available'" type="string"/>
-      <bind nodeset="/contact_follow_up/group_follow_up/health_care_worker_handed_to" relevant=" /contact_follow_up/group_follow_up/status_call  = 'responded' or  /contact_follow_up/group_follow_up/status_visit = 'available'" type="string"/>
-      <bind nodeset="/contact_follow_up/group_follow_up/unique_patient_number" relevant=" /contact_follow_up/group_follow_up/status_call  = 'responded' or  /contact_follow_up/group_follow_up/status_visit = 'available'" type="string"/>
+      <bind nodeset="/contact_follow_up/group_follow_up/facility_linked_to" relevant=" /contact_follow_up/group_follow_up/status_call  = 'responded' or  /contact_follow_up/group_follow_up/status_visit = 'available'" required="true()" type="string"/>
+      <bind nodeset="/contact_follow_up/group_follow_up/unique_patient_number" relevant=" /contact_follow_up/group_follow_up/status_call  = 'responded' or  /contact_follow_up/group_follow_up/status_visit = 'available'" required="true()" type="string"/>
       <bind nodeset="/contact_follow_up/group_follow_up/n_remarks" readonly="true()" type="string"/>
       <bind nodeset="/contact_follow_up/group_follow_up/remarks" type="string"/>
       <bind nodeset="/contact_follow_up/group_follow_up/n_remarks_delimiter" readonly="true()" type="string"/>
       <bind nodeset="/contact_follow_up/group_follow_up/is_not_available_reason_other" type="string"/>
+      <bind calculate="../inputs/user/username" nodeset="/contact_follow_up/audit_trail/created_by" type="string"/>
+      <bind calculate="../inputs/contact/name" nodeset="/contact_follow_up/patient_name" type="string"/>
       <bind calculate="concat('uuid:', uuid())" nodeset="/contact_follow_up/meta/instanceID" readonly="true()" type="string"/>
     </model>
   </h:head>
   <h:body class="pages">
     <group appearance="field-list" ref="/contact_follow_up/inputs">
       <label>Patient</label>
+      <group ref="/contact_follow_up/inputs/user">
+        <label></label>
+        <input ref="/contact_follow_up/inputs/user/contact_id">
+          <label></label>
+        </input>
+        <input ref="/contact_follow_up/inputs/user/facility_id">
+          <label></label>
+        </input>
+        <input ref="/contact_follow_up/inputs/user/username">
+          <label></label>
+        </input>
+      </group>
       <input ref="/contact_follow_up/inputs/encounterDate">
         <label>Encounter date</label>
       </input>
@@ -250,12 +238,7 @@
       </group>
     </group>
     <group appearance="field-list" ref="/contact_follow_up/group_follow_up">
-      <label>Contact details</label>
-      <input ref="/contact_follow_up/group_follow_up/n_details">
-        <label>**Name:** <output value=" /contact_follow_up/inputs/contact/name "/> **Date of birth:** <output value=" /contact_follow_up/inputs/contact/date_of_birth "/> **Phone number:** <output value=" /contact_follow_up/inputs/contact/phone "/></label></input>
-      <input ref="/contact_follow_up/group_follow_up/date_last_contact">
-        <label>**Date of last contact:** <output value=" /contact_follow_up/inputs/contact/date_of_last_contact "/></label>
-      </input>
+      <label>Tracing details</label>
       <select1 ref="/contact_follow_up/group_follow_up/follow_up_type">
         <label>How are you following up?</label>
         <item>
@@ -348,9 +331,6 @@
       <input ref="/contact_follow_up/group_follow_up/facility_linked_to">
         <label>Facility linked to</label>
       </input>
-      <input ref="/contact_follow_up/group_follow_up/health_care_worker_handed_to">
-        <label>Health Care Worker handed to</label>
-      </input>
       <input ref="/contact_follow_up/group_follow_up/unique_patient_number">
         <label>Unique Patient No.</label>
       </input>
@@ -363,6 +343,9 @@
       <input ref="/contact_follow_up/group_follow_up/n_remarks_delimiter">
         <label>&lt;hr style="margin:0 auto;"&gt;</label>
       </input>
+    </group>
+    <group appearance="hidden" ref="/contact_follow_up/audit_trail">
+      <label></label>
     </group>
   </h:body>
 </h:html>

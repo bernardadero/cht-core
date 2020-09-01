@@ -11,7 +11,7 @@
         </translation>
       </itext>
       <instance>
-        <hts_referral delimiter="#" id="hts_referral" prefix="J1!hts_referral!" version="2020-08-17 11:57:11">
+        <hts_referral delimiter="#" id="hts_referral" prefix="J1!hts_referral!" version="2020-08-24 10:32:02">
           <inputs>
             <meta>
               <location>
@@ -21,6 +21,11 @@
                 <message/>
               </location>
             </meta>
+            <user>
+              <contact_id/>
+              <facility_id/>
+              <name/>
+            </user>
             <source>user</source>
             <source_id/>
             <contact>
@@ -52,6 +57,9 @@
             <_163526_acilityReferred_99DCT/>
             <_163527_remarks_99DCT/>
           </observation>
+          <audit_trail>
+            <created_by/>
+          </audit_trail>
           <meta tag="hidden">
             <instanceID/>
           </meta>
@@ -59,6 +67,9 @@
       </instance>
       <instance id="contact-summary"/>
       <bind nodeset="/hts_referral/inputs" relevant="./source = 'user'"/>
+      <bind nodeset="/hts_referral/inputs/user/contact_id" type="string"/>
+      <bind nodeset="/hts_referral/inputs/user/facility_id" type="string"/>
+      <bind nodeset="/hts_referral/inputs/user/name" type="string"/>
       <bind nodeset="/hts_referral/inputs/source" type="string"/>
       <bind nodeset="/hts_referral/inputs/source_id" type="string"/>
       <bind nodeset="/hts_referral/inputs/contact/_id" type="db:clinic"/>
@@ -77,12 +88,25 @@
       <bind constraint="floor(decimal-date-time(.)) &lt;= floor(decimal-date-time(today())) and floor( difference-in-months( . , today() ) div 12 ) &lt;= 100" jr:constraintMsg="jr:itext('/hts_referral/encounter_date:jr:constraintMsg')" nodeset="/hts_referral/encounter_date" required="true()" type="date"/>
       <bind nodeset="/hts_referral/observation/_163526_acilityReferred_99DCT" required="false()" type="string"/>
       <bind nodeset="/hts_referral/observation/_163527_remarks_99DCT" required="false()" type="string"/>
+      <bind calculate="../../inputs/user/name" nodeset="/hts_referral/audit_trail/created_by" type="string"/>
       <bind calculate="concat('uuid:', uuid())" nodeset="/hts_referral/meta/instanceID" readonly="true()" type="string"/>
     </model>
   </h:head>
   <h:body class="pages">
     <group appearance="field-list" ref="/hts_referral/inputs">
       <label>Patient</label>
+      <group ref="/hts_referral/inputs/user">
+        <label></label>
+        <input ref="/hts_referral/inputs/user/contact_id">
+          <label></label>
+        </input>
+        <input ref="/hts_referral/inputs/user/facility_id">
+          <label></label>
+        </input>
+        <input ref="/hts_referral/inputs/user/name">
+          <label></label>
+        </input>
+      </group>
       <group ref="/hts_referral/inputs/contact">
         <label>Contact</label>
         <input appearance="db-object" ref="/hts_referral/inputs/contact/_id">
@@ -116,6 +140,9 @@
       <input ref="/hts_referral/observation/_163527_remarks_99DCT">
         <label>Remarks:</label>
       </input>
+    </group>
+    <group appearance="hidden" ref="/hts_referral/audit_trail">
+      <label></label>
     </group>
   </h:body>
 </h:html>
