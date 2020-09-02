@@ -134,43 +134,76 @@
           <text id="static_instance-place_type-4">
             <value>Contact Tracing Team</value>
           </text>
-          <text id="static_instance-relationship-0">
+          <text id="static_instance-relationship15-0">
             <value>Father</value>
           </text>
-          <text id="static_instance-relationship-1">
+          <text id="static_instance-relationship15-1">
             <value>Mother</value>
           </text>
-          <text id="static_instance-relationship-10">
+          <text id="static_instance-relationship15-10">
             <value>Co-worker</value>
           </text>
-          <text id="static_instance-relationship-11">
+          <text id="static_instance-relationship15-11">
             <value>Partner</value>
           </text>
-          <text id="static_instance-relationship-12">
+          <text id="static_instance-relationship15-12">
             <value>Spouse</value>
           </text>
-          <text id="static_instance-relationship-2">
+          <text id="static_instance-relationship15-2">
             <value>Grand father</value>
           </text>
-          <text id="static_instance-relationship-3">
+          <text id="static_instance-relationship15-3">
             <value>Grand mother</value>
           </text>
-          <text id="static_instance-relationship-4">
+          <text id="static_instance-relationship15-4">
             <value>Sibling</value>
           </text>
-          <text id="static_instance-relationship-5">
+          <text id="static_instance-relationship15-5">
             <value>Child</value>
           </text>
-          <text id="static_instance-relationship-6">
+          <text id="static_instance-relationship15-6">
             <value>Aunt</value>
           </text>
-          <text id="static_instance-relationship-7">
+          <text id="static_instance-relationship15-7">
             <value>Uncle</value>
           </text>
-          <text id="static_instance-relationship-8">
+          <text id="static_instance-relationship15-8">
             <value>Guardian</value>
           </text>
-          <text id="static_instance-relationship-9">
+          <text id="static_instance-relationship15-9">
+            <value>Friend</value>
+          </text>
+          <text id="static_instance-relationshipUnder15-0">
+            <value>Father</value>
+          </text>
+          <text id="static_instance-relationshipUnder15-1">
+            <value>Mother</value>
+          </text>
+          <text id="static_instance-relationshipUnder15-10">
+            <value>Co-worker</value>
+          </text>
+          <text id="static_instance-relationshipUnder15-2">
+            <value>Grand father</value>
+          </text>
+          <text id="static_instance-relationshipUnder15-3">
+            <value>Grand mother</value>
+          </text>
+          <text id="static_instance-relationshipUnder15-4">
+            <value>Sibling</value>
+          </text>
+          <text id="static_instance-relationshipUnder15-5">
+            <value>Child</value>
+          </text>
+          <text id="static_instance-relationshipUnder15-6">
+            <value>Aunt</value>
+          </text>
+          <text id="static_instance-relationshipUnder15-7">
+            <value>Uncle</value>
+          </text>
+          <text id="static_instance-relationshipUnder15-8">
+            <value>Guardian</value>
+          </text>
+          <text id="static_instance-relationshipUnder15-9">
             <value>Friend</value>
           </text>
           <text id="static_instance-role-0">
@@ -1823,7 +1856,7 @@
         </translation>
       </itext>
       <instance>
-        <data delimiter="#" id="contact:clinic:create" prefix="J1!contact:clinic:create!" version="2020-08-24 14:23:35">
+        <data delimiter="#" id="contact:clinic:create" prefix="J1!contact:clinic:create!" version="2020-09-01 18:47:03">
           <inputs>
             <meta>
               <location>
@@ -1893,6 +1926,9 @@
             <address_delimiter/>
             <n_next_of_kin_details/>
             <patient_nextofkin/>
+            <patient_nextofkinRelationshipUnder15/>
+            <patient_nextofkinRelation/>
+            <relationship_test/>
             <patient_nextofkinRelationship/>
             <patient_nextOfKinPhonenumber/>
             <patient_nextOfKinPostaladdress/>
@@ -1928,59 +1964,11 @@
           </item>
         </root>
       </instance>
-      <instance id="relationship">
+      <instance id="id_type">
         <root>
           <item>
-            <itextId>static_instance-relationship-0</itextId>
-            <name>Father</name>
-          </item>
-          <item>
-            <itextId>static_instance-relationship-1</itextId>
-            <name>Mother</name>
-          </item>
-          <item>
-            <itextId>static_instance-relationship-2</itextId>
-            <name>Grand father</name>
-          </item>
-          <item>
-            <itextId>static_instance-relationship-3</itextId>
-            <name>Grand mother</name>
-          </item>
-          <item>
-            <itextId>static_instance-relationship-4</itextId>
-            <name>Sibling</name>
-          </item>
-          <item>
-            <itextId>static_instance-relationship-5</itextId>
-            <name>Child</name>
-          </item>
-          <item>
-            <itextId>static_instance-relationship-6</itextId>
-            <name>Aunt</name>
-          </item>
-          <item>
-            <itextId>static_instance-relationship-7</itextId>
-            <name>Uncle</name>
-          </item>
-          <item>
-            <itextId>static_instance-relationship-8</itextId>
-            <name>Guardian</name>
-          </item>
-          <item>
-            <itextId>static_instance-relationship-9</itextId>
-            <name>Friend</name>
-          </item>
-          <item>
-            <itextId>static_instance-relationship-10</itextId>
-            <name>Co-worker</name>
-          </item>
-          <item>
-            <itextId>static_instance-relationship-11</itextId>
-            <name>Partner</name>
-          </item>
-          <item>
-            <itextId>static_instance-relationship-12</itextId>
-            <name>Spouse</name>
+            <itextId>static_instance-id_type-0</itextId>
+            <name>patient_nationalIdnumber</name>
           </item>
         </root>
       </instance>
@@ -2008,11 +1996,51 @@
           </item>
         </root>
       </instance>
-      <instance id="id_type">
+      <instance id="relationshipUnder15">
         <root>
           <item>
-            <itextId>static_instance-id_type-0</itextId>
-            <name>patient_nationalIdnumber</name>
+            <itextId>static_instance-relationshipUnder15-0</itextId>
+            <name>Father</name>
+          </item>
+          <item>
+            <itextId>static_instance-relationshipUnder15-1</itextId>
+            <name>Mother</name>
+          </item>
+          <item>
+            <itextId>static_instance-relationshipUnder15-2</itextId>
+            <name>Grand father</name>
+          </item>
+          <item>
+            <itextId>static_instance-relationshipUnder15-3</itextId>
+            <name>Grand mother</name>
+          </item>
+          <item>
+            <itextId>static_instance-relationshipUnder15-4</itextId>
+            <name>Sibling</name>
+          </item>
+          <item>
+            <itextId>static_instance-relationshipUnder15-5</itextId>
+            <name>Child</name>
+          </item>
+          <item>
+            <itextId>static_instance-relationshipUnder15-6</itextId>
+            <name>Aunt</name>
+          </item>
+          <item>
+            <itextId>static_instance-relationshipUnder15-7</itextId>
+            <name>Uncle</name>
+          </item>
+          <item>
+            <itextId>static_instance-relationshipUnder15-8</itextId>
+            <name>Guardian</name>
+          </item>
+          <item>
+            <itextId>static_instance-relationshipUnder15-9</itextId>
+            <name>Friend</name>
+          </item>
+          <item>
+            <itextId>static_instance-relationshipUnder15-10</itextId>
+            <name>Co-worker</name>
           </item>
         </root>
       </instance>
@@ -3081,6 +3109,62 @@
           <item>
             <itextId>static_instance-select_country-195</itextId>
             <name>Zimbabwe</name>
+          </item>
+        </root>
+      </instance>
+      <instance id="relationship15">
+        <root>
+          <item>
+            <itextId>static_instance-relationship15-0</itextId>
+            <name>Father</name>
+          </item>
+          <item>
+            <itextId>static_instance-relationship15-1</itextId>
+            <name>Mother</name>
+          </item>
+          <item>
+            <itextId>static_instance-relationship15-2</itextId>
+            <name>Grand father</name>
+          </item>
+          <item>
+            <itextId>static_instance-relationship15-3</itextId>
+            <name>Grand mother</name>
+          </item>
+          <item>
+            <itextId>static_instance-relationship15-4</itextId>
+            <name>Sibling</name>
+          </item>
+          <item>
+            <itextId>static_instance-relationship15-5</itextId>
+            <name>Child</name>
+          </item>
+          <item>
+            <itextId>static_instance-relationship15-6</itextId>
+            <name>Aunt</name>
+          </item>
+          <item>
+            <itextId>static_instance-relationship15-7</itextId>
+            <name>Uncle</name>
+          </item>
+          <item>
+            <itextId>static_instance-relationship15-8</itextId>
+            <name>Guardian</name>
+          </item>
+          <item>
+            <itextId>static_instance-relationship15-9</itextId>
+            <name>Friend</name>
+          </item>
+          <item>
+            <itextId>static_instance-relationship15-10</itextId>
+            <name>Co-worker</name>
+          </item>
+          <item>
+            <itextId>static_instance-relationship15-11</itextId>
+            <name>Partner</name>
+          </item>
+          <item>
+            <itextId>static_instance-relationship15-12</itextId>
+            <name>Spouse</name>
           </item>
         </root>
       </instance>
@@ -4665,12 +4749,12 @@
       <bind constraint=". &gt;= 0 and . &lt;= 110" jr:constraintMsg="jr:itext('/data/clinic/patient_ageYears:jr:constraintMsg')" nodeset="/data/clinic/patient_ageYears" relevant=" /data/clinic/patient_dobKnown  = '_1066_No_99DCT'" required="true()" type="int"/>
       <bind constraint=". &gt;= 0 and . &lt;= 11" jr:constraintMsg="jr:itext('/data/clinic/patient_ageMonths:jr:constraintMsg')" nodeset="/data/clinic/patient_ageMonths" relevant=" /data/clinic/patient_dobKnown  = '_1066_No_99DCT'" required="false()" type="int"/>
       <bind calculate="if(format-date-time(today(),&quot;%m&quot;) -  /data/clinic/patient_ageMonths  &lt; 0, format-date-time(today(),&quot;%m&quot;) -  /data/clinic/patient_ageMonths  + 12, format-date-time(today(),&quot;%m&quot;) -  /data/clinic/patient_ageMonths )" nodeset="/data/clinic/ephemeral_months" type="string"/>
-      <bind calculate="if(format-date-time(today(),&quot;%m&quot;) -  /data/clinic/patient_ageMonths  &lt; 0, format-date-time(today(),&quot;%Y&quot;) -  /data/clinic/patient_ageYears  - 1, format-date-time(today(),&quot;%Y&quot;) -  /data/clinic/patient_ageYears )" nodeset="/data/clinic/ephemeral_years" type="string"/>
+      <bind calculate="if(format-date-time(today(),&quot;%y&quot;) -  /data/clinic/patient_ageYears  &lt; 0, format-date-time(today(),&quot;%Y&quot;) -  /data/clinic/patient_ageYears  - 1, format-date-time(today(),&quot;%Y&quot;) -  /data/clinic/patient_ageYears )" nodeset="/data/clinic/ephemeral_years" type="string"/>
       <bind calculate="date(concat(string( /data/clinic/ephemeral_years ),'-','06','-','16'))" nodeset="/data/clinic/dob_approx" type="string"/>
       <bind calculate="if( /data/clinic/patient_dobKnown  = 'yes',  /data/clinic/patient_dateOfBirth , /data/clinic/dob_approx )" nodeset="/data/clinic/dob_raw" type="string"/>
       <bind calculate="format-date(decimal-date-time(../dob_raw),&quot;%Y-%m-%d&quot;)" nodeset="/data/clinic/dob_iso" type="string"/>
-      <bind nodeset="/data/clinic/dob_note" readonly="true()" relevant="0" type="string"/>
-      <bind calculate="floor( difference-in-months(  /data/clinic/patient_birthDate , today() ) div 12 )" nodeset="/data/clinic/age_in_years" type="string"/>
+      <bind nodeset="/data/clinic/dob_note" readonly="true()" relevant="false()" type="string"/>
+      <bind calculate="floor( difference-in-months(  /data/clinic/patient_dateOfBirth , today() ) div 12 )" nodeset="/data/clinic/age_in_years" type="string"/>
       <bind calculate="difference-in-months(  /data/clinic/patient_birthDate , today() )" nodeset="/data/clinic/age_in_months" type="string"/>
       <bind calculate=" /data/clinic/dob_iso " constraint=". &lt; today()" jr:constraintMsg="jr:itext('/data/clinic/patient_birthDate:jr:constraintMsg')" nodeset="/data/clinic/patient_birthDate" type="string"/>
       <bind nodeset="/data/clinic/head_of_household" type="string"/>
@@ -4697,7 +4781,10 @@
       <bind nodeset="/data/clinic/address_delimiter" readonly="true()" type="string"/>
       <bind nodeset="/data/clinic/n_next_of_kin_details" readonly="true()" type="string"/>
       <bind constraint="regex(.,'[a-zA-Z][a-zA-Z\s]') and string-length(.) &lt;=50" jr:constraintMsg="jr:itext('/data/clinic/patient_nextofkin:jr:constraintMsg')" nodeset="/data/clinic/patient_nextofkin" required="false()" type="string"/>
-      <bind nodeset="/data/clinic/patient_nextofkinRelationship" type="select1"/>
+      <bind nodeset="/data/clinic/patient_nextofkinRelationshipUnder15" relevant=" /data/clinic/age_in_years  &lt;15" required="true()" type="select1"/>
+      <bind nodeset="/data/clinic/patient_nextofkinRelation" relevant=" /data/clinic/age_in_years  &gt;=15" required="true()" type="select1"/>
+      <bind nodeset="/data/clinic/relationship_test" readonly="true()" type="string"/>
+      <bind calculate="if( /data/clinic/patient_nextofkinRelationshipUnder15  != '',  /data/clinic/patient_nextofkinRelationshipUnder15 , /data/clinic/patient_nextofkinRelation )" nodeset="/data/clinic/patient_nextofkinRelationship" type="string"/>
       <bind nodeset="/data/clinic/patient_nextOfKinPhonenumber" type="string"/>
       <bind nodeset="/data/clinic/patient_nextOfKinPostaladdress" type="string"/>
       <bind nodeset="/data/clinic/relationship_delimiter" readonly="true()" type="string"/>
@@ -5896,7 +5983,54 @@
       <input ref="/data/clinic/patient_nextofkin">
         <label>Name</label>
       </input>
-      <select1 appearance="minimal" ref="/data/clinic/patient_nextofkinRelationship">
+      <select1 appearance="minimal" ref="/data/clinic/patient_nextofkinRelationshipUnder15">
+        <label>Relationship</label>
+        <item>
+          <label>Father</label>
+          <value>Father</value>
+        </item>
+        <item>
+          <label>Mother</label>
+          <value>Mother</value>
+        </item>
+        <item>
+          <label>Grand father</label>
+          <value>Grand father</value>
+        </item>
+        <item>
+          <label>Grand mother</label>
+          <value>Grand mother</value>
+        </item>
+        <item>
+          <label>Sibling</label>
+          <value>Sibling</value>
+        </item>
+        <item>
+          <label>Child</label>
+          <value>Child</value>
+        </item>
+        <item>
+          <label>Aunt</label>
+          <value>Aunt</value>
+        </item>
+        <item>
+          <label>Uncle</label>
+          <value>Uncle</value>
+        </item>
+        <item>
+          <label>Guardian</label>
+          <value>Guardian</value>
+        </item>
+        <item>
+          <label>Friend</label>
+          <value>Friend</value>
+        </item>
+        <item>
+          <label>Co-worker</label>
+          <value>Co-worker</value>
+        </item>
+      </select1>
+      <select1 appearance="minimal" ref="/data/clinic/patient_nextofkinRelation">
         <label>Relationship</label>
         <item>
           <label>Father</label>
@@ -5951,6 +6085,8 @@
           <value>Spouse</value>
         </item>
       </select1>
+      <input ref="/data/clinic/relationship_test">
+        <label><output value=" /data/clinic/patient_nextofkinRelationshipUnder15 "/> , <output value=" /data/clinic/patient_nextofkinRelation "/></label></input>
       <input ref="/data/clinic/patient_nextOfKinPhonenumber">
         <label>Phone number</label>
       </input>
